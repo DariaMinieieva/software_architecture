@@ -1,7 +1,3 @@
-//
-// Created by daria on 13.02.23.
-//
-
 #ifndef FACADE_LOGGING_SERVICE_H
 #define FACADE_LOGGING_SERVICE_H
 
@@ -10,6 +6,7 @@
 #include "tbb/concurrent_hash_map.h"
 #include <cpr/cpr.h>
 
+// from tbb concurrent map documentation
 class hash_comp_func {
 public:
     static size_t hash( const std::string& x ) {

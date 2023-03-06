@@ -5,5 +5,16 @@ Content-Type: text/html
 POST http://localhost:8080/facade_service
 Content-Type: application/json
 
-"msggg4"
+"msggg1"
+###
 
+POST http://localhost:8080/facade_service
+Content-Type: application/json
+
+"msggg2"
+###
+
+POST http://localhost:8080/facade_service
+Content-Type: application/json
+
+"msggg3"

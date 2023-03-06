@@ -6,9 +6,9 @@ std::shared_ptr<ht::http_response> logging_service::render_POST(const ht::http_r
         logging_map::accessor a;
         log_data.insert(a, std::string(el.first));
         a->second = std::string(el.second);
-        a.release();
 
         std::cout << a->second << std::endl;
+        a.release();
     }
     return std::shared_ptr<ht::http_response>(new ht::string_response("200: ok"));
 }
