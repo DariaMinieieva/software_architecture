@@ -1,0 +1,4 @@
+hazelcast:
+  queue:
+    read_write:
+      max-size: 10
