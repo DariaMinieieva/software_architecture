@@ -41,7 +41,7 @@ int main() {
     clients.emplace_back(writer_func);
 
     clients.emplace_back(reader_func, 1);
-//    clients.emplace_back(reader_func, 2);
+    clients.emplace_back(reader_func, 2);
 
     for (auto& client : clients) {
         client.join();

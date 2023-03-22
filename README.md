@@ -1,22 +1,41 @@
 ### software_architecture
-# Lab 1 Daria Minieieva
-## POST/GET requests screenshots
+# Lab 2 Daria Minieieva
+GitHub link: [https://github.com/DariaMinieieva/software_architecture/tree/hazelcast_basics](https://github.com/DariaMinieieva/software_architecture/tree/hazelcast_basics)
 
-Here is example of running POST request with text "msggg1". <br>
-![img.png](images/img.png)
+### Task 1
 
-And here is example of output to the "logging" console. <br>
-![img.png](images/img_2.png)
+In the first task we put 1000 values in a map.
 
-Example of GET request that returns message from "logging" service and "not implemented yet" from "messages" service. <br>
-![img.png](images/img_3.png)
+![Untitled](images/1.png)
 
-And here is result of GET request after two more POST request with messages "msggg2" and "msggg3". <br>
-![img.png](images/img_4.png)
+As we can see, values almost evenly divided among nodes, however there is data loss due to data race.
 
-And output of "logging" console. <br>
-![img.png](images/img_5.png)
+![Untitled](images/2.png)
 
-## Libraries
+After one node is disabled the data is still there and divides between two remaining nodes.
 
-This lab is done on C++ using httpserver (https://github.com/etr/libhttpserver) for http server, cpr (https://github.com/libcpr/cpr) and Boost UUID for UUID generation. Also tbb concurrent hash map is used to store data in logging service.
+![Untitled](images/3.png)
+
+If only one node remains it has all the values.
+
+### Task 2
+
+Here we count values using map. Here is the result of the program without locks:
+
+![Untitled](images/4.png)
+
+As there are three clients the value should be 3000, so here we see data loss due to data race.
+
+The results for pessimistic and optimistic locks are both 3000 as there are no more data race.
+
+![Untitled](images/5.png)
+
+### Task 3
+
+In this tasks there a queue and clients that read and write to it.
+
+The queue is bounded and has a capacity of 10 elements. So if it puts it there and there is no clients to read, it fills it up and waits until values are taken.
+
+![Untitled](images/6.png)
+
+If there are a writer and two readers, writer can put all desired values and all of them are extracted by readers until they receive a poison pill.
