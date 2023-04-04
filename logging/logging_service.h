@@ -3,34 +3,41 @@
 
 #include <iostream>
 #include <httpserver.hpp>
-#include "tbb/concurrent_hash_map.h"
 #include <cpr/cpr.h>
+#include <hazelcast/client/hazelcast.h>
 
-// from tbb concurrent map documentation
-class hash_comp_func {
-public:
-    static size_t hash( const std::string& x ) {
-        size_t h = 0;
-        for( const char* s = x.c_str(); *s; ++s )
-            h = (h*17)^*s;
-        return h;
-    }
-
-    static bool equal(const std::string& x, const std::string& y ) {
-        return x==y;
-    }
-};
+using namespace hazelcast::client;
 
 
 namespace ht = httpserver;
-typedef  tbb::concurrent_hash_map<std::string, std::string, hash_comp_func> logging_map;
 
-class logging_service : public ht::http_resource {
+class LoggingService {
 private:
-    logging_map log_data;
+    hazelcast_client hz;
+    std::shared_ptr<imap> logging_map;
 public:
-    std::shared_ptr<ht::http_response> render_POST(const ht::http_request& req);
-    std::shared_ptr<ht::http_response> render_GET(const ht::http_request&);
+    LoggingService(): hz{hazelcast::new_client().get()}, logging_map{hz.get_map("logging_map").get()} {
+
+    }
+
+    void add_to_log(const std::map<std::string, std::string>& args) {
+        for (const auto& el : args) {
+            logging_map->put<std::string, std::string>(el.first, el.second).get();
+        }
+
+    }
+
+    std::string get_log() {
+        std::string res = "[";
+        for (const auto& el : logging_map->values<std::string>().get()) {
+            res += el + ", ";
+        }
+
+        res += "]";
+
+
+        return res;
+    }
 };
 
 #endif //FACADE_LOGGING_SERVICE_H

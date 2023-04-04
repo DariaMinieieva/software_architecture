@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(logging)
 
-add_executable(logging logging_service.h logging_main.cpp logging_service.cpp)
+add_executable(logging logging_service.h logging_main.cpp logging_controller.h)
 
 if(LIBHTTPSERVER_INCLUDE_DIRS AND LIBHTTPSERVER_LIBRARIES)
     set(LIBHTTPSERVER_FOUND TRUE)
@@ -41,5 +41,6 @@ find_package(cpr REQUIRED)
 target_include_directories(logging PRIVATE ${LIBCPR_INCLUDE_DIRS})
 target_link_libraries(logging ${LIBHTTPSERVER_LIBRARIES} cpr::cpr)
 
-find_package(TBB REQUIRED)
-target_link_libraries(logging TBB::tbb)
+find_package(hazelcast-cpp-client CONFIG REQUIRED)
+target_link_libraries(logging hazelcast-cpp-client::hazelcast-cpp-client)
+

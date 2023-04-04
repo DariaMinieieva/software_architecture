@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(facade)
 
-add_executable(facade facade_service.h facade_service.cpp facade_main.cpp)
+add_executable(facade facade_service.h facade_main.cpp facade_controller.h)
 
 if(LIBHTTPSERVER_INCLUDE_DIRS AND LIBHTTPSERVER_LIBRARIES)
     set(LIBHTTPSERVER_FOUND TRUE)

@@ -1,22 +1,36 @@
 ### software_architecture
-# Lab 1 Daria Minieieva
-## POST/GET requests screenshots
+# Lab 3 Minieieva
 
-Here is example of running POST request with text "msggg1". <br>
-![img.png](images/img.png)
+GitHub link:
 
-And here is example of output to the "logging" console. <br>
-![img.png](images/img_2.png)
+In this task we have 3 instances of logging service and 3 Hazelcast nodes.
 
-Example of GET request that returns message from "logging" service and "not implemented yet" from "messages" service. <br>
-![img.png](images/img_3.png)
+First I made 10 POST requests to facade service that will randomly choose one of three logging services. As we can see requests were successful.
 
-And here is result of GET request after two more POST request with messages "msggg2" and "msggg3". <br>
-![img.png](images/img_4.png)
+![Untitled](images/img_1.png)
 
-And output of "logging" console. <br>
-![img.png](images/img_5.png)
+This is the result of the GET request. All the messages are returned.
 
-## Libraries
+![Untitled](images/img_2.png)
 
-This lab is done on C++ using httpserver (https://github.com/etr/libhttpserver) for http server, cpr (https://github.com/libcpr/cpr) and Boost UUID for UUID generation. Also tbb concurrent hash map is used to store data in logging service.
+After terminating 2 logging services and 2 hazelcast nodes still all messages are returned.
+
+![Untitled](images/img_3.png)
+
+However, if facade randomly chooses terminated logging service, no messages will be returned.
+
+![Untitled](images/img_4.png)
+
+## Usage
+
+To make usage of logging service easier, the port should be passed to it.
+
+So to start logging services you should do the following:
+
+```bash
+./logging 8082
+./logging 8083
+./logging 8084
+```
+
+Right now these ports are hardcoded.
