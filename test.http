@@ -58,6 +58,6 @@ Content-Type: application/json
 "msg10"
 ###
 
-#GET http://localhost:8080/facade_service
-#Content-Type: text/html
+GET http://localhost:8080/facade_service
+Content-Type: text/html
 ######

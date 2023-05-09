@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(messages)
 
-add_executable(messages messages_service.h messages_main.cpp messages_service.cpp)
+add_executable(messages messages_service.h messages_main.cpp messages_controller.h)
 
 if(LIBHTTPSERVER_INCLUDE_DIRS AND LIBHTTPSERVER_LIBRARIES)
     set(LIBHTTPSERVER_FOUND TRUE)
@@ -39,3 +39,6 @@ target_include_directories(messages PRIVATE ${LIBHTTPSERVER_INCLUDE_DIRS})
 
 find_package(cpr REQUIRED)
 target_link_libraries(messages ${LIBHTTPSERVER_LIBRARIES} cpr::cpr)
+
+find_package(hazelcast-cpp-client CONFIG REQUIRED)
+target_link_libraries(messages hazelcast-cpp-client::hazelcast-cpp-client)

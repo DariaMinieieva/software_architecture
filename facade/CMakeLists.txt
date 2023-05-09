@@ -39,3 +39,6 @@ target_include_directories(facade PRIVATE ${LIBHTTPSERVER_INCLUDE_DIRS})
 
 find_package(cpr REQUIRED)
 target_link_libraries(facade ${LIBHTTPSERVER_LIBRARIES} cpr::cpr)
+
+find_package(hazelcast-cpp-client CONFIG REQUIRED)
+target_link_libraries(facade hazelcast-cpp-client::hazelcast-cpp-client)
