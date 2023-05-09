@@ -1,25 +1,37 @@
 ### software_architecture
-# Lab 3 Minieieva
+# Lab 4 Minieieva
 
-GitHub link:
+GitHub link: https://github.com/DariaMinieieva/software_architecture/tree/micro_mq
 
-In this task we have 3 instances of logging service and 3 Hazelcast nodes.
+In this task message queue was added for the communication between facade service and messages service.
 
-First I made 10 POST requests to facade service that will randomly choose one of three logging services. As we can see requests were successful.
+There is an example of what is received by each of three logging services:
 
-![Untitled](images/img_1.png)
+Logging service 1:
+![img](images/7.png)
 
-This is the result of the GET request. All the messages are returned.
+Logging service 2:
+![img](images/6.png)
 
-![Untitled](images/img_2.png)
+Logging service 3:
+![img](images/5.png)
 
-After terminating 2 logging services and 2 hazelcast nodes still all messages are returned.
+And example of what is received by each of two messages service:
 
-![Untitled](images/img_3.png)
+Messages service 1:
+![img](images/4.png)
 
-However, if facade randomly chooses terminated logging service, no messages will be returned.
+Messages service 2:
+![img](images/3.png)
 
-![Untitled](images/img_4.png)
+And some of the results of GET request to facade, (in square brackets messages returned by logging service and in round - by messages service).
+As we can see, all messages from logging service are returned, but messages service only returns what each instance has:
+
+Example 1:
+![img](images/2.png)
+
+Example 2:
+![img](images/1.png)
 
 ## Usage
 
@@ -28,9 +40,16 @@ To make usage of logging service easier, the port should be passed to it.
 So to start logging services you should do the following:
 
 ```bash
-./logging 8082
 ./logging 8083
 ./logging 8084
+./logging 8085
+```
+
+And to start messages service you should do this:
+
+```bash
+./messages 8081
+./messages 8082
 ```
 
 Right now these ports are hardcoded.

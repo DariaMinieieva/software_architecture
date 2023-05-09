@@ -23,6 +23,7 @@ public:
     void add_to_log(const std::map<std::string, std::string>& args) {
         for (const auto& el : args) {
             logging_map->put<std::string, std::string>(el.first, el.second).get();
+            std::cout << el.second << std::endl;
         }
 
     }

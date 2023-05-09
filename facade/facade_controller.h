@@ -1,7 +1,6 @@
 #ifndef MICROSERVICES_FACADE_CONTROLLER_H
 #define MICROSERVICES_FACADE_CONTROLLER_H
 
-#include <iostream>
 #include <httpserver.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -9,6 +8,7 @@
 #include <cpr/cpr.h>
 #include <string>
 #include "facade_service.h"
+#include <iostream>
 
 namespace ht = httpserver;
 namespace bo = boost::uuids;
