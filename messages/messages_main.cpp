@@ -6,8 +6,8 @@ int main(int argc, char** argv) {
         return -1;
     }
     httpserver::webserver web_serv = httpserver::create_webserver(atoi(argv[1]));
-    MessagesController messages;
-    web_serv.register_resource("/messages_service", &messages);
+    MessagesController messages(atoi(argv[1]));
+    web_serv.register_resource("/Messages", &messages);
     web_serv.start(false);
 
     while(true) {

@@ -6,8 +6,8 @@ int main(int argc, char** argv) {
         return -1;
     }
     httpserver::webserver web_serv = httpserver::create_webserver(atoi(argv[1]));
-    LoggingController logging;
-    web_serv.register_resource("/logging_service", &logging);
+    LoggingController logging(atoi(argv[1]));
+    web_serv.register_resource("/Logging", &logging);
     web_serv.start(true);
 
 }

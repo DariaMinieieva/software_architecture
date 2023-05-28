@@ -9,8 +9,11 @@ namespace ht = httpserver;
 
 class MessagesController : public ht::http_resource {
 private:
-    MessagesService message_service{};
+    MessagesService message_service;
 public:
+    MessagesController(int port): message_service{port} {
+
+    }
     std::shared_ptr<ht::http_response> render_GET(const ht::http_request&) {
         return std::shared_ptr<ht::http_response>(new ht::string_response(message_service.get_messages()));
     }

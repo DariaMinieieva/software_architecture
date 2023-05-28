@@ -13,9 +13,9 @@ namespace ht = httpserver;
 
 class LoggingController : public ht::http_resource {
 private:
-    LoggingService logging_service{};
+    LoggingService logging_service;
 public:
-    LoggingController(){};
+    LoggingController(int port): logging_service{port} {};
 
     std::shared_ptr<ht::http_response> render_POST(const ht::http_request& req) {
         auto args = req.get_args();

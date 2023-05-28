@@ -44,3 +44,5 @@ target_link_libraries(logging ${LIBHTTPSERVER_LIBRARIES} cpr::cpr)
 find_package(hazelcast-cpp-client CONFIG REQUIRED)
 target_link_libraries(logging hazelcast-cpp-client::hazelcast-cpp-client)
 
+find_package(ppconsul)
+target_link_libraries(logging ppconsul)

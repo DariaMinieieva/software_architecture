@@ -16,14 +16,15 @@ namespace bo = boost::uuids;
 class FacadeController : public ht::http_resource {
 private:
     bo::random_generator  generator;
-    FacadeService facade_service{};
+    FacadeService facade_service;
 
 public:
-    FacadeController(){};
+    FacadeController(int port): facade_service{port} {};
     std::shared_ptr<ht::http_response> render_POST(const ht::http_request& req) {
         facade_service.add_messages(std::string(req.get_content()));
         return std::shared_ptr<ht::http_response>(new ht::string_response("ok: 200"));
     }
+
 
     std::shared_ptr<ht::http_response> render_GET(const ht::http_request& req) {
         return std::shared_ptr<ht::http_response>(new ht::string_response(facade_service.get_messages()));

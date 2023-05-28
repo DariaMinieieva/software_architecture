@@ -1,55 +1,55 @@
 ### software_architecture
-# Lab 4 Minieieva
+# Lab 5 Minieieva
 
-GitHub link: https://github.com/DariaMinieieva/software_architecture/tree/micro_mq
+GitHub link: https://github.com/DariaMinieieva/software_architecture/tree/micro_consul
 
-In this task message queue was added for the communication between facade service and messages service.
+This laboratory uses consul to manage addresses and configs.
 
-There is an example of what is received by each of three logging services:
+Here is the consul output that shows that all services connected to it
 
-Logging service 1:
-![img](images/7.png)
+![img](images/1.png)
 
-Logging service 2:
-![img](images/6.png)
+To test this laboratory I sent 10 messages as in previous labs.
+There are 1 facade, 3 logging services and 2 messaging services.
 
-Logging service 3:
-![img](images/5.png)
-
-And example of what is received by each of two messages service:
-
-Messages service 1:
-![img](images/4.png)
-
-Messages service 2:
-![img](images/3.png)
-
-And some of the results of GET request to facade, (in square brackets messages returned by logging service and in round - by messages service).
-As we can see, all messages from logging service are returned, but messages service only returns what each instance has:
-
-Example 1:
+Here are examples of responces for POST requests:
 ![img](images/2.png)
 
-Example 2:
-![img](images/1.png)
+Here are outputs of logging services:
+
+![img](images/3.png)
+![img](images/4.png)
+![img](images/5.png)
+
+Here are the outputs of messages services:
+
+![img](images/6.png)
+![img](images/7.png)
+
+And two possible results from GET request to facade service:
+
+![img](images/8.png)
+![img](images/9.png)
 
 ## Usage
 
-To make usage of logging service easier, the port should be passed to it.
-
-So to start logging services you should do the following:
+This is how services should be started. The ports can be any value.
 
 ```bash
-./logging 8083
-./logging 8084
-./logging 8085
-```
-
-And to start messages service you should do this:
-
-```bash
+./logging 8080
 ./messages 8081
-./messages 8082
+./facade 8082
 ```
 
-Right now these ports are hardcoded.
+To start a consul you can use the following command:
+
+```bash
+consul agent -server -data-dir=/tmp/consul -bootstrap-expect=1
+```
+
+And to deregister consul services you can do the following:
+
+```bash
+consul services deregister -id=127.0.0.1:8086/Facade
+```
+You should specify the name and port to the service.

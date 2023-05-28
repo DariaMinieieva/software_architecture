@@ -42,3 +42,6 @@ target_link_libraries(facade ${LIBHTTPSERVER_LIBRARIES} cpr::cpr)
 
 find_package(hazelcast-cpp-client CONFIG REQUIRED)
 target_link_libraries(facade hazelcast-cpp-client::hazelcast-cpp-client)
+
+find_package(ppconsul)
+target_link_libraries(facade ppconsul)
