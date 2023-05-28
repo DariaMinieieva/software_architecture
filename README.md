@@ -52,4 +52,4 @@ And to deregister consul services you can do the following:
 ```bash
 consul services deregister -id=127.0.0.1:8086/Facade
 ```
-You should specify the name and port to the service.
+You should specify the name and port of the service.
